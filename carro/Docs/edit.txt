@@ -1,0 +1,23 @@
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+
+public @Bean MongoDbFactory mongoDbFactory() throws Exception {
+    UserCredentials credentials = new UserCredentials(env.getProperty("db.username"), env.getProperty("db.password"));
+    return new SimpleMongoDbFactory(new MongoClient(env.getProperty("db.host"), env.getProperty("db.port",Integer.class, 27017)), env.getProperty("db.name"), credentials);
+}
+
+public @Bean MongoTemplate mongoTemplate() throws Exception {
+    return new MongoTemplate(mongoDbFactory());
+}
+
+MongoCredential mongoCredential = MongoCredential.createCredential("user", "database","password".toCharArray());
+ServerAddress address = new ServerAddress("mymongo.mycompany.com", 62797);
+MongoClient mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
+MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "database");
+
+cluster0-shard-00-00-lwaut.mongodb.net:27017
+        
+        
