@@ -14,6 +14,7 @@ import org.springframework.data.geo.Point;
 import com.google.common.collect.Range;
 import lombok.*;
 import rentcar.carro.dto.*;
+import rentcar.carro.exception.ObjectNotFoundException;
 
 @AllArgsConstructor
 @Getter
@@ -22,6 +23,45 @@ import rentcar.carro.dto.*;
 @ToString
 @Document("cars")
 public class Car {
+	
+	  @Id
+	  String regNumber;
+	  // https://stackoverflow.com/questions/42292359/spring-data-mongodb-not-null-annotation-like-spring-data-jpa
+	  @NotNull(message = "Car's owner must not be null")
+	  String owner; //email OR User owner
+	  
+	  // Location
+	  @NotNull(message = "Car's host city must not be null")
+	  String hostCity;
+	  Address address;
+	  Point location;   // [ longitude, latitude ]
+	  
+	  // Car details	  
+	  String make;
+	  String model;
+	  Integer year;
+	  Double engine;
+	  String fuel;
+	  String transmission;
+	  String wheelsDrive;
+	  Integer doors;
+	  Integer seats;
+	  String carClass;
+	  Double fuelConsumption;
+	  
+	  // Feachers&Price&Images
+	  String [] features;
+	  @NotNull(message = "Car's day price doesn't defined")
+	  Integer dayPrice;
+	  
+	  Double distanceIncluded;
+	  String [] imageUrl;
+	  
+	  // Bookings
+	  List<Booking> bookings;
+	  // Comments
+	  List<Comment> comments;
+
 	  public Car() {
 		  this.bookings = new ArrayList<>();
 		  this.comments = new ArrayList<>();
@@ -82,29 +122,18 @@ public class Car {
 		    
 			return res[0];
 	  }
-	  public void addBooking(Booking booking) {
-		  booking.setAmount(getDayPrice());
-		  this.bookings.add(booking);
-	  }
-	  public BookingResultDto getBookingResult(Booking booking) {
-		  Long[] orderNumber = {0L};
-		  bookings.stream()
-				  .filter(b->b.getStartDateTime().equals(booking.getStartDateTime()))
-				  .peek(b -> orderNumber[0] = b.getOrderNumber())
-				  .collect(Collectors.toList());
 
-		  BookingResultDto res = new BookingResultDto(regNumber, orderNumber[0], booking.getBookingDateTime(), booking.getAmount());
-		  return res;
-	  }
 	  public void confirmPaymemt(ConfirmPaymentDto dto) {
 		 Booking order = bookings.stream()
 				 .filter(b->b.getOrderNumber() == dto.getOrderNumber())
 				 .findFirst()
 				 .orElse(null);
 		 
-		  if (order != null) {
-			  order.setPaymentConfirmed(dto.isPaymentConfirmed());
+		  if (order == null) {
+			  throw new ObjectNotFoundException("Car " + dto.getCarNumber() + 
+					  " booking order number " + dto.getOrderNumber() + " not found");
 		  }
+		  order.setPaymentConfirmed(dto.isPaymentConfirmed());
 	  }
 	  public void addComment(Comment comment) {
 		  createComments();
@@ -121,43 +150,5 @@ public class Car {
 		  
 		  return count[0]==0? null : new CarRatingDto(Math.round(total/count[0]), count[0] );
 	  }
-	  
-	  @Id
-	  String regNumber;
-	  // https://stackoverflow.com/questions/42292359/spring-data-mongodb-not-null-annotation-like-spring-data-jpa
-	  @NotNull(message = "Car's owner must not be null")
-	  String owner; //email OR User owner
-	  
-	  // Location
-	  @NotNull(message = "Car's host city must not be null")
-	  String hostCity;
-	  Address address;
-	  Point location;   // [ longitude, latitude ]
-	  
-	  // Car details	  
-	  String make;
-	  String model;
-	  Integer year;
-	  Double engine;
-	  String fuel;
-	  String transmission;
-	  String wheelsDrive;
-	  Integer doors;
-	  Integer seats;
-	  String carClass;
-	  Double fuelConsumption;
-	  
-	  // Feachers&Price&Images
-	  String [] features;
-	  @NotNull(message = "Car's day price doesn't defined")
-	  Integer dayPrice;
-	  
-	  Double distanceIncluded;
-	  String [] imageUrl;
-	  
-	  // Bookings
-	  List<Booking> bookings;
-	  // Comments
-	  List<Comment> comments;
-	  
+	  	  
 }

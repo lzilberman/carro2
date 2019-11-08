@@ -6,28 +6,29 @@ import rentcar.carro.dto.*;
 import rentcar.carro.entities.*;
 
 public interface ICarroService {
-	Car addCar(CarDto car);
 	
-	Car updateCar(UpdateCarDto car);
+	public Car addCar(CarDto car);
+	public Car updateCar(UpdateCarDto car);	
+	public Car deleteCar(String regNumber);	
+	public Car getCar(String regNumber);
 	
-	Car deleteCar(String regNumber);
-	
-	Car getCar(String regNumber);
-	
-	List<Booking> getCarBookings(String regNumber); 
-		
-	BookingResultDto makeReservation(BookingDataDto bookingData);
-	
-	void confirmPayment(ConfirmPaymentDto confirm);
-
-	public String createGeoIndex ();
-	List<Car> findBy(SearchCriteriaDto searchData);
-	List<String> getMakeModels(String maker);
-	
-	void addCarComment(Comment comment);	
-	List<Comment> getCarComments(String regNumber);
-    CarRatingDto getCarRating(String regNumber);
-    
+	public BookingResultDto makeReservation(BookingDataDto bookingData);
+	public void confirmPayment(ConfirmPaymentDto confirm);
     public void clearUnconfirmedBookings();
-
+	public List<Booking> getCarBookings(String regNumber); 		
+	
+	//==========================
+	public void testElement();
+	//==========================	
+	
+	public String createGeoIndex ();
+	public void createDateTimeIndexes ();
+	
+	public List<Car> findBy(SearchCriteriaDto searchData);
+	public List<String> getMakeModels(String maker);
+	
+	public void addCarComment(Comment comment);	
+	public List<Comment> getCarComments(String regNumber);
+	public CarRatingDto getCarRating(String regNumber);
+    
 }

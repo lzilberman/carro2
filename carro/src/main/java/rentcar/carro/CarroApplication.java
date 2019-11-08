@@ -1,9 +1,29 @@
+///*
+package rentcar.carro;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import rentcar.carro.service.ICarroService;
+
+@SpringBootApplication
+public class CarroApplication  {
+    @Autowired
+    ICarroService carroService;
+
+	public static void main(String[] args) {
+		SpringApplication.run(CarroApplication.class, args);
+	}
+}
+//*/
+//==============================================
+/*
 package rentcar.carro;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.lang.Boolean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,29 +38,128 @@ import rentcar.carro.service.ICarroService;
 import rentcar.carro.entities.*;
 
 @SpringBootApplication
-public class CarroApplication { // implements CommandLineRunner  {
-//    @Autowired
-//    ICarroService carroService;
+public class CarroApplication   implements CommandLineRunner  {
+    @Autowired
+    ICarroService carroService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarroApplication.class, args);
 	}
 
-//	@Override
+	@Override
 	public void run(String... args) throws Exception {
 
-		LocalDateTime dc1 = LocalDateTime.of(2019, 11, 4, 11, 10);
-		LocalDateTime dc2 = LocalDateTime.of(2019, 11, 8, 11, 10);
-		Long tc1 = Timestamp.valueOf(dc1).getTime();
-		Long tc2 = Timestamp.valueOf(dc2).getTime();
+//		carroService.clearUnconfirmedBookings();		
 		
-		System.out.println("Start " + tc1 + " End " + tc2);
+//==========================================================================
+		Long ub1 = Timestamp.valueOf( LocalDateTime.of(2019, 12, 1, 11, 10)).getTime();	
+		System.out.println("2019.12.01, 11:10 = "+ ub1.toString());
+		
+		Long ub2 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 5, 11, 10)).getTime();
+		System.out.println("2019.12.05, 11:10 = "+ ub2.toString());
+		
+		Long ub3 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 8, 11, 10)).getTime();
+		System.out.println("2019.12.08, 11:10 = "+ ub3.toString());
+		
+		Long ub4 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 11, 11, 10)).getTime();
+		System.out.println("2019.12.11, 11:10 = "+ ub4.toString());
+
+
+		Long ub5 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 15, 11, 10)).getTime();
+		System.out.println("2019.12.15, 11:10 = "+ ub5.toString());
+		
+		Long ub6 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 20, 11, 10)).getTime();
+		System.out.println("2019.12.20, 11:10 = "+ ub6.toString());
+			
+//===========================================================================
+//		LocalDateTime dc1 = LocalDateTime.of(2019, 11, 1, 11, 10); 	LocalDateTime dc2 = LocalDateTime.of(2019, 11, 5, 11, 10); 
+//		LocalDateTime dc3 = LocalDateTime.of(2019, 11, 8, 11, 10);  LocalDateTime dc4 = LocalDateTime.of(2019, 11, 12, 11, 10); 
+//		LocalDateTime dc5 = LocalDateTime.of(2019, 11, 22, 11, 10); LocalDateTime dc6 = LocalDateTime.of(2019, 11, 25, 11, 10); 
+//		  
+//		Long tc1 = Timestamp.valueOf(dc1).getTime(); Long tc2 = Timestamp.valueOf(dc2).getTime();
+//		Long tc3 = Timestamp.valueOf(dc3).getTime(); Long tc4 = Timestamp.valueOf(dc4).getTime();
+//		Long tc5 = Timestamp.valueOf(dc5).getTime(); Long tc6 = Timestamp.valueOf(dc6).getTime();	
+//************************** BOOKING 72-777-72 *******************************		
+//		BookingDataDto bookingData721 = BookingDataDto.builder().carNumber("72-777-72").dayPrice(49)
+//				.startDateTime(tc1).endDateTime(tc2).user("721@gmail.com").build();
+//		
+////// 721@gmail.com: set bookingConfirmed true (direct in Atlas) ////////////
+//		BookingResultDto res721 = carroService.makeReservation(bookingData721);
+//		if (res721 == null) System.out.println("cannot book reservation for user 721@gmail.com");
+//		else System.out.println("reservation: " + res721);
+//****************************************************************************
+//		BookingDataDto bookingData722 = BookingDataDto.builder().carNumber("72-777-72").dayPrice(49)
+//				.startDateTime(tc3).endDateTime(tc4).user("722@gmail.com").build();
+//		
+//		BookingResultDto res722 = carroService.makeReservation(bookingData722);
+//		if (res722 == null) System.out.println("cannot book reservation for user 722@gmail.com");
+//		else System.out.println("reservation: " + res722);				
+//****************************************************************************		
+//		BookingDataDto bookingData723 = BookingDataDto.builder().carNumber("72-777-72").dayPrice(49)
+//				.startDateTime(tc5).endDateTime(tc6).user("723@gmail.com").build();
+//		
+//// 723@gmail.com: set bookingDateTime 1571929598404 (direct in Atlas)
+//		BookingResultDto res723 = carroService.makeReservation(bookingData723);
+//		if (res723 == null) System.out.println("cannot book reservation for user 723@gmail.com");
+//		else System.out.println("reservation: " + res723);		
+//************************ BOOKING 77-777-77  ********************************
+//		BookingDataDto bookingData771 = BookingDataDto.builder().carNumber("77-777-77").dayPrice(54)
+//				.startDateTime(tc1).endDateTime(tc2).user("771@gmail.com").build();
+//		
+////// 771@gmail.com: set bookingConfirmed true (direct in Atlas) ////////////
+//		BookingResultDto res771 = carroService.makeReservation(bookingData771);
+//		if (res771 == null) System.out.println("cannot book reservation for user 771@gmail.com");
+//		else System.out.println("reservation: " + res771);
+//*****************************************************************************	
+//		BookingDataDto bookingData772 = BookingDataDto.builder().carNumber("77-777-77").dayPrice(54)
+//				.startDateTime(tc3).endDateTime(tc4).user("772@gmail.com").build();
+//
+//		BookingResultDto res772 = carroService.makeReservation(bookingData772);
+//		if (res772 == null) System.out.println("cannot book reservation for user 772@gmail.com");
+//		else System.out.println("reservation: " + res772);
+//*****************************************************************************
+//		BookingDataDto bookingData773 = BookingDataDto.builder().carNumber("77-777-77").dayPrice(54)
+//				.startDateTime(tc5).endDateTime(tc6).user("773@gmail.com").build();
+//		
+//// 773@gmail.com: set bookingDateTime 1571929598404  (direct in Atlas)
+//		BookingResultDto res773 = carroService.makeReservation(bookingData773);
+//		if (res773 == null) System.out.println("cannot book reservation for user 773@gmail.com");
+//		else System.out.println("reservation: " + res773);		
+//*****************************************************************************	
+//		Long threshold = Timestamp.valueOf(LocalDateTime.now()).getTime() - 6000000; 		
+//		System.out.println("################## threshold: " + threshold.toString());
+		
+//		System.out.println("=====================");
+//		System.out.println("66-666-66 bookings[0]");
+//		System.out.println(new Date(1572599400000L));	
+//		System.out.println(new Date(1572945000000L));
+//		System.out.println("");		
+//		System.out.println("66-666-66 bookings[1]");
+//		System.out.println(new Date(1573204200000L));
+//		System.out.println(new Date(1573549800000L));
+//		System.out.println("=====================");		
+//		System.out.println("77-777-77 bookings[0]");
+//		System.out.println(new Date(1572599400000L));
+//		System.out.println(new Date(1572945000000L));
+//		System.out.println("=====================");
+//		System.out.println("72-777-72 bookings[0]");
+//		System.out.println(new Date(1573117800000L));
+//		System.out.println(new Date(1573549800000L));
+//		System.out.println("=====================");
+//		System.out.println("62-666-62, 11-111-11 NO BOOKINGS");
+		
+//		System.out.println("1572858600000");
+//		System.out.println(new Date(1572858600000L));
+//		System.out.println("1573204200000");
+//		System.out.println(new Date(1573204200000L));
+		
+//		carroService.createDateTimeIndexes();
 		
 //=========GEO SEARCH==========================================			
 //		SearchCriteriaDto sdata = new SearchCriteriaDto ();
 //		Point point6 = new Point (34.798233, 31.958455);
 //		sdata.setPoint (point6);
-//		sdata.setMaxDistance (0.0015);
+//		sdata.setMaxDistance (0.0005);
 //
 //		List<Car> cars = carroService.findBy(sdata);
 //		cars.forEach (System.out::println);
@@ -130,7 +249,7 @@ public class CarroApplication { // implements CommandLineRunner  {
 //				.endDateTime(ta2)
 //				.user("USER6@gmail.com")
 //				.build();
-//
+
 //		BookingDataDto bookingData7 = BookingDataDto.builder()
 //				.carNumber("77-777-77")
 //				.startDateTime(ta1)
@@ -142,7 +261,7 @@ public class CarroApplication { // implements CommandLineRunner  {
 //		BookingResultDto res6 = carroService.makeReservation(bookingData6);
 //		if (res6 == null) System.out.println("cannot book reservation");
 //		else System.out.println("reservation: " + res6);
-//
+
 //		BookingResultDto res7 = carroService.makeReservation(bookingData7);
 //		if (res7 == null) System.out.println("cannot book reservation");
 //		else System.out.println("reservation: " + res7);
@@ -153,41 +272,26 @@ public class CarroApplication { // implements CommandLineRunner  {
 //		Long tb2 = Timestamp.valueOf(db2).getTime();
 //		
 //		BookingDataDto bookingData62 = BookingDataDto.builder()
-//				.carNumber("66-666-66")
-//				.startDateTime(tb1)
-//				.endDateTime(tb2)
+//				.carNumber("62-666-62")
+//				.startDateTime(1575364200000L)
+//				.endDateTime(1575709800000L)
 //				.user("USER62@gmail.com")
 //				.build();
 //
 //		BookingResultDto res62 = carroService.makeReservation(bookingData62);
 //		if (res62 == null) System.out.println("cannot book reservation for user USER62@gmail.com");
 //		else System.out.println("reservation: " + res62);
-//============================================================
-//		LocalDateTime dc1 = LocalDateTime.of(2019, 11, 4, 11, 10);
-//		LocalDateTime dc2 = LocalDateTime.of(2019, 11, 8, 11, 10);
-//		Long tc1 = Timestamp.valueOf(dc1).getTime();
-//		Long tc2 = Timestamp.valueOf(dc2).getTime();
-//		
-//		BookingDataDto bookingData63 = BookingDataDto.builder()
-//				.carNumber("66-666-66")
-//				.startDateTime(tc1)
-//				.endDateTime(tc2)
-//				.user("USER63@gmail.com")
-//				.build();
-//
-//		BookingResultDto res63 = carroService.makeReservation(bookingData63);
-//		if (res63 == null) System.out.println("cannot book reservation for user USER63@gmail.com");
-//		else System.out.println("reservation: " + res63);	
-//============================================================
+//======================================================
 //		carroService.getCarBookings("66-666-66")
 //		.forEach(System.out::println);
 //============================================================
 //		ConfirmPaymentDto dto = new ConfirmPaymentDto("66-666-66", res62.getOrderNumber(), true);
 //		carroService.confirmPayment(dto);		
 //============================================================		
+
   }
 }
-
+*/
 //====================================================================================================================
 /*
 package rentcar.carro;
@@ -218,21 +322,22 @@ public class CarroApplication implements CommandLineRunner  {
 //		carroService.deleteCar("72-666-72");
 //		
 //		Point location6 = new Point(34.8047923, 31.912363);
-//		Point location7 = new Point(34.797407, 	31.958893);
+		Point location7 = new Point(34.797407, 	31.958893);
 //		Point location62 = new Point(34.79944, 	31.959007);
-//		Point location72 = new Point(34.79698, 31.957991);
+		Point location72 = new Point(34.79698, 31.957991);
+//		Point location111 = new Point(34.798984, 31.958135);
 //		
-//		String[] image6 = new String[] {
-//				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/b0r3mfIkQlGJwrSJabE8cg.1440x700.jpg",
-//				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/IkG7bVDbR9-rv13KbsUG-g.1440x700.jpg"
-//				};
-//		String[] image7 = new String[] {
-//				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/rRas_v7uQwqRfqhT8LTpKw.1440x700.jpg",
-//				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/UD6wK_r_Tz2-EhgRzsgVqw.1440x700.jpg"
-//				};
-//		
-//		String[] features6 = {"Reverse Camera", "Touch Screen Menu", "Side Camera"}; 
-//		String[] features7 = {"Super", "Puper", "Features"}; 
+		String[] image6 = new String[] {
+				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/b0r3mfIkQlGJwrSJabE8cg.1440x700.jpg",
+				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/IkG7bVDbR9-rv13KbsUG-g.1440x700.jpg"
+				};
+		String[] image7 = new String[] {
+				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/rRas_v7uQwqRfqhT8LTpKw.1440x700.jpg",
+				"https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/UD6wK_r_Tz2-EhgRzsgVqw.1440x700.jpg"
+				};
+		
+		String[] features6 = {"Reverse Camera", "Touch Screen Menu", "Side Camera"}; 
+		String[] features7 = {"Super", "Puper", "Features"}; 
 //
 //		Address address62 = Address.builder()
 //		.country("Israel")
@@ -241,14 +346,50 @@ public class CarroApplication implements CommandLineRunner  {
 //		.apartment(62)
 //		.build();
 //
-//		Address address72 = Address.builder()
+		Address address77 = Address.builder()
+		.country("Israel")
+		.city("city6")
+		.building(77)
+		.apartment(77)
+		.build();
+		
+		Address address72 = Address.builder()
+		.country("Israel")
+		.city("city6")
+		.building(72)
+		.apartment(72)
+		.build();
+		
+//		Address address111 = Address.builder()
 //		.country("Israel")
-//		.city("city6")
-//		.building(72)
-//		.apartment(72)
+//		.city("city111")
+//		.building(111)
+//		.apartment(111)
 //		.build();
 //		
-////		CarDto car6 = CarDto.builder()
+//		CarDto car111 = CarDto.builder()
+//				.regNumber("11-111-11")  
+//				.owner("111@gmail.com")  
+//				.hostCity("city111")       
+//				.location(location111)     
+//				.address(address111)
+//				.make("maker6")          
+//				.model("model11")         
+//				.year(2011)               
+//				.engine(2.0)
+//				.fuel("gas")
+//				.transmission("Manual")
+//				.wheelsDrive("TWD")
+//				.doors(4)
+//				.seats(5)
+//				.carClass("C")
+//				.fuelConsumption(12.5)
+//				.features(features7)         
+//				.dayPrice(42)               
+//				.distanceIncluded(0.45)
+//				.imageUrl(image6)			
+//				.build();
+				
 //		CarDto car62 = CarDto.builder()
 //				.regNumber("62-666-62")  
 //				.owner("626@gmail.com")  
@@ -272,35 +413,35 @@ public class CarroApplication implements CommandLineRunner  {
 //				.imageUrl(image6)			
 //				.build();
 //		
-////		CarDto car7 = CarDto.builder()
-//		CarDto car72 = CarDto.builder()
-//				.regNumber("77-777-77")  
-//				.owner("727@gmail.com")  
-//				.hostCity("city6")   
-//				.address(address72)
-//				.location(location72)     
-//				.make("maker6")          
-//				.model("model62")         
-//				.year(2011)               
-//				.engine(2.5)
-//				.fuel("gas")
-//				.transmission("Manual")
-//				.wheelsDrive("TWD")
-//				.doors(4)
-//				.seats(5)
-//				.carClass("D")
-//				.fuelConsumption(15.2)
-//				.features(features7)         
-//				.dayPrice(54)               
-//				.distanceIncluded(0.45)
-//				.imageUrl(image7)			
-//				.build();	
-//		
-//		Car res = carroService.addCar(car62);	
+//		CarDto car7 = CarDto.builder()
+		CarDto car72 = CarDto.builder()
+				.regNumber("72-777-72")  
+				.owner("72@gmail.com")  
+				.hostCity("city6")   
+				.address(address72)
+				.location(location72)     
+				.make("maker6")          
+				.model("model62")         
+				.year(2011)               
+				.engine(2.5)
+				.fuel("gas")
+				.transmission("Manual")
+				.wheelsDrive("TWD")
+				.doors(4)
+				.seats(5)
+				.carClass("D")
+				.fuelConsumption(15.2)
+				.features(features7)         
+				.dayPrice(49)               
+				.distanceIncluded(0.45)
+				.imageUrl(image7)			
+				.build();	
+		
+//		Car res = carroService.addCar(car7);	
 //		System.out.println(res);
-//		
-//		res = carroService.addCar(car72);	
-//		System.out.println(res);
+		
+		Car res = carroService.addCar(car72);	
+		System.out.println(res);
 //========================================================
 //		Address address6 = Address.builder()
 //				.country("Israel")
@@ -332,8 +473,8 @@ public class CarroApplication implements CommandLineRunner  {
 //		res = carroService.updateCar(car);	
 //		System.out.println(res);
 //===============================================		
-//	}
-//}
+	}
+}
 
 */
 

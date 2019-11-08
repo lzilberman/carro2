@@ -199,8 +199,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, apiError.getStatus());
     }
     //===
-    @ExceptionHandler(CarNotFoundException.class)
-    public ResponseEntity<Object> handleCarNotFoundException (CarNotFoundException ex) {
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<Object> handleObjectNotFoundException (ObjectNotFoundException ex) {
     	
         logger.info(ex.getClass().getName());
         String message = ex.getMessage();

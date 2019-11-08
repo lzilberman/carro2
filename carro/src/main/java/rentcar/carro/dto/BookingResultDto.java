@@ -10,7 +10,7 @@ import lombok.*;
 public class BookingResultDto {
 
 	String carNumber;
-	Long orderNumber;
+	String orderNumber;
 	Long bookingDateTime;
 	Double amount;
 }

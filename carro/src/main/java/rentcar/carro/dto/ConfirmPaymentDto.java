@@ -9,13 +9,13 @@ import lombok.*;
 public class ConfirmPaymentDto {
 
 	String carNumber;
-	Long orderNumber;
+	String orderNumber;
 	boolean paymentConfirmed;
 	
 	public String getCarNumber() {
 		return carNumber;
 	}
-	public Long getOrderNumber() {
+	public String getOrderNumber() {
 		return orderNumber;
 	}
 	public boolean isPaymentConfirmed() {

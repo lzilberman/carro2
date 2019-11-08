@@ -1,10 +1,8 @@
 package rentcar.carro.entities;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
-import org.springframework.data.annotation.Transient;
 import com.google.common.collect.Range;
+import org.bson.types.ObjectId;
 
 import lombok.*;
 import rentcar.carro.dto.BookingDataDto;
@@ -15,19 +13,9 @@ import rentcar.carro.dto.BookingResultDto;
 @Getter
 @ToString
 public class Booking {
-	public Booking(BookingDataDto dto) {
-		this.carNumber = dto.getCarNumber();
-		this.startDateTime = dto.getStartDateTime();
-		this.endDateTime = dto.getEndDateTime();
-		this.user = dto.getUser();
-		this.SEQUENCE_NAME = "bookings_sequence_" + this.carNumber;
-		this.bookingDateTime = Timestamp.valueOf(LocalDateTime.now()).getTime();
-		paymentConfirmed = false;
-	}
 	
-	@Transient
-    public String SEQUENCE_NAME; 
-	Long orderNumber;
+	private static int idcounter = 0;
+	String orderNumber;
 	
 	Long startDateTime;
 	Long endDateTime;
@@ -38,18 +26,36 @@ public class Booking {
 	
 	String carNumber;
 	String user; // User user
-	
-	private Long getBookingDays() {
-		return ChronoUnit.DAYS.between(new Timestamp(startDateTime).toLocalDateTime(), 
-				                       new Timestamp(endDateTime).toLocalDateTime()); 
+
+	public Booking(BookingDataDto dto) {
+		this.carNumber = dto.getCarNumber();
+		this.startDateTime = dto.getStartDateTime();
+		this.endDateTime = dto.getEndDateTime();
+		this.amount = dto.getAmount();
+		this.user = dto.getUser();
+		this.bookingDateTime = Timestamp.valueOf(LocalDateTime.now()).getTime();
+		this.orderNumber = generateOrderNumber(this.bookingDateTime);
+		this.paymentConfirmed = false;
+	}
+
+	private String generateOrderNumber(Long timestamp) {
+		ObjectId objectId = ObjectId.createFromLegacyFormat(
+				                         timestamp.intValue(), 
+				                         ObjectId.getGeneratedMachineIdentifier(), 
+				                         ++idcounter);
+		return objectId.toString();
 	}
 	public Range<Long> getBookingRange() {
 		return Range.closed(startDateTime, endDateTime);
 	}
-	public void setAmount(Integer dayPrice) {
-		this.amount  = (double) (dayPrice * this.getBookingDays());
-	}
 	public BookingResultDto getBookingResult() {
 		return new BookingResultDto(carNumber, orderNumber, bookingDateTime, amount);
 	}
+	public String getBookingPeriod() {
+		LocalDateTime start = new Timestamp(startDateTime).toLocalDateTime();
+		LocalDateTime end = new Timestamp(endDateTime).toLocalDateTime();
+		
+		return "from " + start.toString() + " to " + end.toString();
+	}
+
 }

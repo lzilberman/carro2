@@ -1,7 +1,7 @@
 package rentcar.carro.dto;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import lombok.*;
 
@@ -13,14 +13,17 @@ import lombok.*;
 @Builder
 public class BookingDataDto {
 	String carNumber;
+	Integer dayPrice;
 	Long startDateTime;
-	Long endDateTime;
-	
+	Long endDateTime;	
 	String user; 
-	public String getBookingPeriod() {
-		LocalDateTime start = new Timestamp(startDateTime).toLocalDateTime();
-		LocalDateTime end = new Timestamp(endDateTime).toLocalDateTime();
-		
-		return "from " + start.toString() + " to " + end.toString();
+	
+	private Long getBookingDays() {
+		return ChronoUnit.DAYS.between(new Timestamp(startDateTime).toLocalDateTime(), 
+				                       new Timestamp(endDateTime).toLocalDateTime()); 
 	}
+	public double getAmount() {
+		return (double) (this.dayPrice * this.getBookingDays());
+	}
+	
 }

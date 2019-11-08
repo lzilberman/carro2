@@ -1,47 +1,57 @@
 package rentcar.carro.service;
 
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Range;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Indexes;
+import com.mongodb.client.result.UpdateResult;
 
+import org.bson.Document;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import rentcar.carro.dto.*;
 import rentcar.carro.entities.*;
-import rentcar.carro.exception.CarNotFoundException;
+import rentcar.carro.exception.ObjectNotFoundException;
 import rentcar.carro.exception.IllegalBookingPeriod;
 import rentcar.carro.exception.InvalidUpdateCarDtoException;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+import java.sql.Timestamp;
 
 @Service
+@EnableScheduling
+@EnableAsync
 public class CarroServiceImpl implements ICarroService {
 	@Autowired
 	MongoOperations mongoOperations;
+	
+	public int minutesWaitForPayment = 1;
+	private long  millisWaitForPayment = this.minutesWaitForPayment * 60000;
 	
 	@Override
 	public Car addCar(CarDto carDto) {
 		return mongoOperations.insert(new Car(carDto));
 	}
-
 	@Override
 	public Car updateCar(UpdateCarDto updateData) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("regNumber").is(updateData.getRegNumber()));
 		
 		Update update = new Update();
-
 		if (updateData.getHostCity() != null && updateData.getHostCity().trim().isEmpty()) {
 			throw new InvalidUpdateCarDtoException("host city for update car " + updateData.getRegNumber() + " has invalid value.");
 		}		
@@ -72,55 +82,81 @@ public class CarroServiceImpl implements ICarroService {
 		mongoOperations.upsert(query, update, Car.class);	
 		return mongoOperations.findById(updateData.getRegNumber(), Car.class); 
 	}
-
 	@Override
 	public Car deleteCar(String regNumber) {
 		Query query = new Query(Criteria.where("regNumber").is(regNumber));
 		Car car = mongoOperations.findAndRemove(query, Car.class);
-		if (car == null) throw new CarNotFoundException("Car " + regNumber + " not found");
+		if (car == null) throw new ObjectNotFoundException("Car " + regNumber + " not found");
 		return car;
 	}
-
 	@Override
 	public Car getCar(String regNumber) {
 		Car car = mongoOperations.findById(regNumber, Car.class);
-		if (car == null) throw new CarNotFoundException("Car " + regNumber + " not found");
+		if (car == null) throw new ObjectNotFoundException("Car " + regNumber + " not found");
 		return car;
 	}
+	
+// https://www.baeldung.com/spring-boot-mongodb-auto-generated-field
+//	public long generateSequence(String seqName) {
 	
 	@Override
 	public List<Booking> getCarBookings(String regNumber) {
 		return getCar(regNumber).getBookings();
 	}
-	
-	// https://www.baeldung.com/spring-boot-mongodb-auto-generated-field
-	public long generateSequence(String seqName) {
-
-		Query query = new Query();
-		query.addCriteria(Criteria.where("_id").is(seqName));
-		Update update = new Update();
-		update.inc("seq",1);
-		FindAndModifyOptions options = new FindAndModifyOptions();
-		options.returnNew(true).upsert(true);
-		
-	    DatabaseSequence counter = mongoOperations.findAndModify(query, update, options, DatabaseSequence.class);
-	    return !Objects.isNull(counter) ? counter.getSeq() : 1;
-	}
-	
 	@Override
 	public BookingResultDto makeReservation(BookingDataDto dto) {
-		Car car = getCar(dto.getCarNumber());
+		
+		Long start = dto.getStartDateTime();
+		Long finish = dto.getEndDateTime();
+		
+		Criteria one = Criteria.where("bookings").not().elemMatch(Criteria.where("startDateTime").lte(start)
+				.and("endDateTime").gte(start));
+		Criteria two = Criteria.where("bookings").not().elemMatch(Criteria.where("startDateTime").lte(finish)
+				.and("endDateTime").gte(finish));
+		Criteria three = Criteria.where("bookings").not().elemMatch(Criteria.where("startDateTime").gte(finish)
+				.and("endDateTime").lte(finish));
+		Criteria four = Criteria.where("bookings").not().elemMatch(Criteria.where("startDateTime").lte(finish)
+				.and("endDateTime").gte(finish));		
+		Criteria five = Criteria.where("regNumber").is(dto.getCarNumber());		
+
+		Query query = new Query();
+		query.addCriteria(new Criteria().andOperator(one, two, three, four, five));
+		
 		Booking booking = new Booking(dto);
-		if(!car.canBook(booking.getBookingRange())) {
-			throw new IllegalBookingPeriod("Cannot book car " + dto.getCarNumber() + " in period " + dto.getBookingPeriod());
-		}
-		
-		booking.setOrderNumber(generateSequence(booking.SEQUENCE_NAME));
-		car.addBooking(booking);
-		
-		car = mongoOperations.save(car);
-		return car.getBookingResult(booking);
+		Update update = new Update();	
+		update.addToSet("bookings",  booking );
+				
+		Car updatedCar = this.mongoOperations.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), Car.class);
+        if (updatedCar == null) {
+			throw new IllegalBookingPeriod("Car number " + booking.getCarNumber() + 
+					" doesn't exist or already booked in period " + booking.getBookingPeriod());        	
+        }
+		return booking.getBookingResult(); 
 	}
+/* https://docs.mongodb.com/manual/reference/operator/update/pull/#up._S_pull
+ * https://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/core/query/Update.html#pull-java.lang.String-java.lang.Object-
+ * https://github.com/gaiandb/gaiandb/blob/master/java/Asset/VTIs/com/ibm/db2j/MongoDB.java
+ * https://www.baeldung.com/spring-scheduled-tasks
+ */
+	@Override
+	@Async
+	@Scheduled(fixedRate = 60000, initialDelay = 60000)	
+	public void clearUnconfirmedBookings() {
+		
+		Long threshold = Timestamp.valueOf(LocalDateTime.now()).getTime() - millisWaitForPayment; 
+		Update update = new Update();
+		
+		BasicDBObject conditions = new BasicDBObject("paymentConfirmed", false);	
+		conditions.append("bookingDateTime", new BasicDBObject("$lte", threshold));  // 1573133345966L
+		update.pull("bookings", conditions);
+
+		UpdateResult updated = this.mongoOperations.updateMulti(new Query(), update, Car.class);
+		System.out.println("##################### Removed count: " + updated.getModifiedCount());		
+	}
+	@Override
+	public void testElement() {
+       // TODO: for common testing purpose		
+	}	
 
 	@Override
 	public void confirmPayment(ConfirmPaymentDto dto) {
@@ -193,6 +229,15 @@ public class CarroServiceImpl implements ICarroService {
 		String indexName = collection.createIndex (Indexes.geo2d("location"));      	
 		return indexName;
 	}
+	/*
+	 * https://docs.mongodb.com/manual/reference/operator/query/or/
+	 * https://mongodb.github.io/mongo-java-driver/3.4/driver/tutorials/indexes/
+	 */
+	public void createDateTimeIndexes () {		
+		MongoCollection<Document> collection = mongoOperations.getCollection ("cars");
+		collection.createIndex (Indexes.ascending("bookings.startDateTime"));
+		collection.createIndex (Indexes.ascending("bookings.endDateTime"));      	
+	}
 	
 	@Override
 	public List<String> getMakeModels(String maker) {
@@ -222,12 +267,6 @@ public class CarroServiceImpl implements ICarroService {
 	@Override
 	public CarRatingDto getCarRating(String regNumber) {
 		return getCar(regNumber).getCarRating();
-	}
-
-	@Override
-	public void clearUnconfirmedBookings() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
