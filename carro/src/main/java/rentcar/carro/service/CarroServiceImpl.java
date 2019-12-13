@@ -1,6 +1,7 @@
 package rentcar.carro.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Range;
@@ -16,6 +17,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -30,8 +33,15 @@ import rentcar.carro.exception.InvalidUpdateCarDtoException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import java.sql.Timestamp;
 
+//https://habr.com/ru/company/jugru/blog/439796/ # @ManagedResource  + @EnableAsync = NO JMX
+// https://github.com/toparvion/joker-2018-samples/tree/master/jmx-resource
+@ManagedResource(objectName="Carro:name=parameters")
 @Service
 @EnableScheduling
 @EnableAsync
@@ -39,8 +49,32 @@ public class CarroServiceImpl implements ICarroService {
 	@Autowired
 	MongoOperations mongoOperations;
 	
-	public int minutesWaitForPayment = 1;
-	private long  millisWaitForPayment = this.minutesWaitForPayment * 60000;
+	@ManagedAttribute
+	public int getMillisWaitForPayment() {
+		return millisWaitForPayment;
+	}
+	@ManagedAttribute
+	public void setMillisWaitForPayment(int millisWaitForPayment) { 
+		this.millisWaitForPayment = millisWaitForPayment;
+	}
+	@Value("${millisWaitForPayment:120000}")
+	int millisWaitForPayment = 90000;
+	
+	public CarroServiceImpl() {
+		System.out.println("from constructor");
+		System.out.printf("millisWaitForPayment = %d\n\n", millisWaitForPayment);		
+	}
+	@PostConstruct
+	public void postConstruct() {
+		System.out.println("from postConstruct");
+		System.out.printf("millisWaitForPayment = %d\n\n", millisWaitForPayment);		
+	}
+	@PreDestroy
+	public void preDestroy() {
+		System.out.println("from preDestroy");
+		System.out.printf("millisWaitForPayment = %d\n\n", millisWaitForPayment);		
+	}
+	
 	
 	@Override
 	public Car addCar(CarDto carDto) {
@@ -90,18 +124,38 @@ public class CarroServiceImpl implements ICarroService {
 		return car;
 	}
 	@Override
-	public Car getCar(String regNumber) {
+	public Car userGetCar(String regNumber) {
+		Car car = mongoOperations.findById(regNumber, Car.class);
+		if (car == null) throw new ObjectNotFoundException("Car " + regNumber + " not found");
+		
+		List<BookingBase> periods = car.getBookings().stream()
+		.map(b->b.toBookingBase())
+		.collect(Collectors.toList());
+		car.setBookingPeriods(periods);
+		car.setBookings(null);
+		
+		return car;
+	}
+	@Override
+	public Car ownerGetCar(String regNumber) {
 		Car car = mongoOperations.findById(regNumber, Car.class);
 		if (car == null) throw new ObjectNotFoundException("Car " + regNumber + " not found");
 		return car;
 	}
-	
+	@Override
+	public List<Car> getOwnerCars(String email) {
+        Query query = new Query(); 
+        query.with(new Sort(Sort.Direction.ASC, "regNumber")); 
+       	query.addCriteria(Criteria.where("owner").is(email)); 
+		
+		return mongoOperations.find(query, Car.class);
+	}
 // https://www.baeldung.com/spring-boot-mongodb-auto-generated-field
 //	public long generateSequence(String seqName) {
 	
 	@Override
 	public List<Booking> getCarBookings(String regNumber) {
-		return getCar(regNumber).getBookings();
+		return ownerGetCar(regNumber).getBookings();
 	}
 	@Override
 	public BookingResultDto makeReservation(BookingDataDto dto) {
@@ -137,13 +191,16 @@ public class CarroServiceImpl implements ICarroService {
  * https://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/core/query/Update.html#pull-java.lang.String-java.lang.Object-
  * https://github.com/gaiandb/gaiandb/blob/master/java/Asset/VTIs/com/ibm/db2j/MongoDB.java
  * https://www.baeldung.com/spring-scheduled-tasks
+ * https://howtodoinjava.com/spring-core/spring-scheduled-annotation/
+ * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/Scheduled.html#fixedRate--
+ * https://recordings.join.me/oL2YbbSdaU-1XC-AaJsvIQ
  */
 	@Override
 	@Async
-	@Scheduled(fixedRate = 60000, initialDelay = 60000)	
+	@Scheduled(fixedRateString = "${millisWaitForPayment}", initialDelayString = "${millisWaitForPayment}")	
 	public void clearUnconfirmedBookings() {
 		
-		Long threshold = Timestamp.valueOf(LocalDateTime.now()).getTime() - millisWaitForPayment; 
+		Long threshold = Timestamp.valueOf(LocalDateTime.now()).getTime() - millisWaitForPayment*60000; 
 		Update update = new Update();
 		
 		BasicDBObject conditions = new BasicDBObject("paymentConfirmed", false);	
@@ -160,7 +217,7 @@ public class CarroServiceImpl implements ICarroService {
 
 	@Override
 	public void confirmPayment(ConfirmPaymentDto dto) {
-		Car car = getCar(dto.getCarNumber());
+		Car car = ownerGetCar(dto.getCarNumber());
 		car.confirmPaymemt(dto);
 		mongoOperations.save(car);
 	}
@@ -253,20 +310,20 @@ public class CarroServiceImpl implements ICarroService {
 	
 	@Override
 	public void addCarComment(Comment comment) {
-		Car car = getCar(comment.getCarNumber());
-		if(car == null) return;
-		car.addComment(comment);
-		mongoOperations.save(car);		
+//		Car car = getCar(comment.getCarNumber());
+//		car.addComment(comment);
+//		mongoOperations.save(car);	
+		mongoOperations.save(ownerGetCar(comment.getCarNumber()).addComment(comment));
 	}
 
 	@Override
 	public List<Comment> getCarComments(String regNumber) {
-		return getCar(regNumber).getComments();
+		return ownerGetCar(regNumber).getComments();
 	}
 
 	@Override
 	public CarRatingDto getCarRating(String regNumber) {
-		return getCar(regNumber).getCarRating();
+		return ownerGetCar(regNumber).getCarRating();
 	}
 
 }

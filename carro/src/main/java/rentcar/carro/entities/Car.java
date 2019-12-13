@@ -59,11 +59,13 @@ public class Car {
 	  
 	  // Bookings
 	  List<Booking> bookings;
+	  List<BookingBase> bookingPeriods; // simplified booking presentation
 	  // Comments
 	  List<Comment> comments;
 
 	  public Car() {
 		  this.bookings = new ArrayList<>();
+		  this.bookingPeriods = new ArrayList<>();
 		  this.comments = new ArrayList<>();
 	  }
 	  public Car(CarDto dto) {
@@ -89,6 +91,7 @@ public class Car {
 			this.imageUrl = dto.getImageUrl();	
 			
 			this.bookings = new ArrayList<>();
+			this.bookingPeriods = new ArrayList<>();
 			this.comments = new ArrayList<>();
 	  }
 	  
@@ -97,8 +100,10 @@ public class Car {
 			  this.comments = new ArrayList<>();
 	  }	  
 	  private void createBookings() {
-		  if (this.bookings == null)
+		  if (this.bookings == null) {
 			  this.bookings = new ArrayList<>();
+			  this.bookingPeriods = new ArrayList<>();
+		  }
 	  }
 	  
 	  /*
@@ -135,9 +140,10 @@ public class Car {
 		  }
 		  order.setPaymentConfirmed(dto.isPaymentConfirmed());
 	  }
-	  public void addComment(Comment comment) {
+	  public Car addComment(Comment comment) {
 		  createComments();
 		  this.comments.add(comment);
+		  return this;
 	  }
 	  public CarRatingDto getCarRating() {
 		  Integer [] count = {0};

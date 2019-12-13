@@ -18,6 +18,11 @@ public class BookingDataDto {
 	Long endDateTime;	
 	String user; 
 	
+	public BookingDataDto(String carNumber, Long startDateTime, Long endDateTime) {
+		this.carNumber = carNumber;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+	}
 	private Long getBookingDays() {
 		return ChronoUnit.DAYS.between(new Timestamp(startDateTime).toLocalDateTime(), 
 				                       new Timestamp(endDateTime).toLocalDateTime()); 

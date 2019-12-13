@@ -182,8 +182,17 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
  	       
         return new ResponseEntity<Object>(apiError, apiError.getStatus());
     } 
-
-    //===** 404 NOT_FOUND *****
+    //***** 401 ANAUTHORIZED *****
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<Object> handleUnauthorizedException (UnauthorizedException ex) {
+    	
+        logger.info(ex.getClass().getName());
+        String message = ex.getMessage();
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, message, message);
+ 	       
+        return new ResponseEntity<Object>(apiError, apiError.getStatus());
+    }     
+    //***** 404 NOT_FOUND *****
     /*
      * https://stackoverflow.com/questions/51048707/spring-boot-handling-nohandlerfoundexception
      */
@@ -262,6 +271,16 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         logger.info(ex.getClass().getName());
         String error = ex.getMessage();
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, error, error);
+ 	       
+        return new ResponseEntity<Object>(apiError, apiError.getStatus());
+    } 
+    //===
+    @ExceptionHandler(ObjectAlreadyExistException.class)
+    public ResponseEntity<Object> handleObjectAlreadyExistException (ObjectAlreadyExistException ex) {
+    	
+        logger.info(ex.getClass().getName());
+        String message = ex.getMessage();
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, message, message);
  	       
         return new ResponseEntity<Object>(apiError, apiError.getStatus());
     } 

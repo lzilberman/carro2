@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 
 import lombok.*;
 import rentcar.carro.dto.BookingDataDto;
+import rentcar.carro.dto.BookingBase;
 import rentcar.carro.dto.BookingResultDto;
 
 @NoArgsConstructor
@@ -56,6 +57,10 @@ public class Booking {
 		LocalDateTime end = new Timestamp(endDateTime).toLocalDateTime();
 		
 		return "from " + start.toString() + " to " + end.toString();
+	}
+	public BookingBase toBookingBase() {
+		
+		return new BookingBase(this.carNumber, this.startDateTime, this.endDateTime);
 	}
 
 }

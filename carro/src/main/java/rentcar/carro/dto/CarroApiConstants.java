@@ -1,27 +1,32 @@
 package rentcar.carro.dto;
 
-public class CarroApiConstants {
-    public static final String ADD_CAR = "/car";
-    public static final String UPDATE_CAR = "/car";
-    public static final String DELETE_CAR = "/car/{regNumber}";
-    public static final String GET_CAR = "/car/{regNumber}";
-    
-    public static final String OWNER_GET_CAR_BY_ID = "/user/cars/{regNumber}"; 
-    public static final String CAR_ID = "regNumber"; //?
+public interface CarroApiConstants {
 
-    public static final String ADD_USER = "/registration";
-    public static final String UPDATE_USER = "/user/{email}";
-    public static final String LOGIN_USER = "user/login";
+    String ADD_USER = "/registration";
+    String LOGIN_USER = "/user/login/{email}"; 
+    String UPDATE_USER = "/user";
+    
+    String UPDATE_PASSWORD = "/password";              // POST
+    String ADD_ROLE = "/role";                         // POST
+    String DELETE_ROLE = "/role/{username}/{role}";    // DELETE
+    
+	String DELETE_USER = "/user/{email}";
+	String SHUTDOWN = "/actuator/shutdown";
+	
+    String ADD_CAR = "/car";
+    String UPDATE_CAR = "/car";
+    String DELETE_CAR = "/car/{regNumber}";
+    String GET_CAR = "/car/{regNumber}";
 
-    public static final String GET_CAR_BOOKINGS = "/user/cars/{regNumber}/periods"; // !
-    public static final String BOOK_CAR = "/car/reservation";
-    public static final String CONGIRM_PAYMENT = "/reservation/confirm";
+    String OWNER_GET_CARS = "/user/{email}/cars";
+    String OWNER_GET_CAR_BY_ID = "/user/cars/{regNumber}"; 
+    String OWNER_GET_CAR_BOOKINGS = "/user/cars/periods/{regNumber}"; 
+    String FIND_BY = "/search";  
     
-    public static final String GET_CAR_COMMENTS = "/comments/{regNumber}";
-    public static final String ADD_COMMENT = "/comment";
- 
-    public static final String FIND_BY = "/search";  
+    String BOOK_CAR = "/car/reservation";
+    String CONGIRM_PAYMENT = "/reservation/confirm";
     
-    public static final String BEST_BOOKED = "/car/best"; //?
-    
+    String BEST_BOOKED = "/car/best"; 
+    String GET_CAR_COMMENTS = "/comments/{regNumber}";
+    String ADD_COMMENT = "/comment";   
 }

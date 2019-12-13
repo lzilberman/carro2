@@ -10,7 +10,9 @@ public interface ICarroService {
 	public Car addCar(CarDto car);
 	public Car updateCar(UpdateCarDto car);	
 	public Car deleteCar(String regNumber);	
-	public Car getCar(String regNumber);
+	public Car userGetCar(String regNumber);      // all users
+	public Car ownerGetCar(String regNumber); // owners
+	public List<Car> getOwnerCars(String email);
 	
 	public BookingResultDto makeReservation(BookingDataDto bookingData);
 	public void confirmPayment(ConfirmPaymentDto confirm);

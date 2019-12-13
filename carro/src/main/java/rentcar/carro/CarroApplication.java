@@ -52,24 +52,24 @@ public class CarroApplication   implements CommandLineRunner  {
 //		carroService.clearUnconfirmedBookings();		
 		
 //==========================================================================
-		Long ub1 = Timestamp.valueOf( LocalDateTime.of(2019, 12, 1, 11, 10)).getTime();	
-		System.out.println("2019.12.01, 11:10 = "+ ub1.toString());
+		Long ub1 = Timestamp.valueOf( LocalDateTime.of(2020, 1, 1, 11, 10)).getTime();	
+		System.out.println("2020.1.01, 11:10 = "+ ub1.toString());
 		
-		Long ub2 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 5, 11, 10)).getTime();
-		System.out.println("2019.12.05, 11:10 = "+ ub2.toString());
+		Long ub2 = Timestamp.valueOf(LocalDateTime.of(2020, 1, 5, 11, 10)).getTime();
+		System.out.println("2020.1.05, 11:10 = "+ ub2.toString());
 		
-		Long ub3 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 8, 11, 10)).getTime();
-		System.out.println("2019.12.08, 11:10 = "+ ub3.toString());
+		Long ub3 = Timestamp.valueOf(LocalDateTime.of(2020, 1, 8, 11, 10)).getTime();
+		System.out.println("2020.1.08, 11:10 = "+ ub3.toString());
 		
-		Long ub4 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 11, 11, 10)).getTime();
-		System.out.println("2019.12.11, 11:10 = "+ ub4.toString());
+		Long ub4 = Timestamp.valueOf(LocalDateTime.of(2020, 1, 11, 11, 10)).getTime();
+		System.out.println("2020.1.11, 11:10 = "+ ub4.toString());
 
 
-		Long ub5 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 15, 11, 10)).getTime();
-		System.out.println("2019.12.15, 11:10 = "+ ub5.toString());
+		Long ub5 = Timestamp.valueOf(LocalDateTime.of(2020, 1, 15, 11, 10)).getTime();
+		System.out.println("2020.1.15, 11:10 = "+ ub5.toString());
 		
-		Long ub6 = Timestamp.valueOf(LocalDateTime.of(2019, 12, 20, 11, 10)).getTime();
-		System.out.println("2019.12.20, 11:10 = "+ ub6.toString());
+		Long ub6 = Timestamp.valueOf(LocalDateTime.of(2020, 1, 20, 11, 10)).getTime();
+		System.out.println("2020.1.20, 11:10 = "+ ub6.toString());
 			
 //===========================================================================
 //		LocalDateTime dc1 = LocalDateTime.of(2019, 11, 1, 11, 10); 	LocalDateTime dc2 = LocalDateTime.of(2019, 11, 5, 11, 10); 

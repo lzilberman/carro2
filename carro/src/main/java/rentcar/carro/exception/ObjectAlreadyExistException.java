@@ -1,9 +1,9 @@
 package rentcar.carro.exception;
 
 @SuppressWarnings("serial")
-public class ObjectNotFoundException extends RuntimeException {
+public class ObjectAlreadyExistException extends RuntimeException {
 
-	public ObjectNotFoundException(String message) {
+	public ObjectAlreadyExistException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
