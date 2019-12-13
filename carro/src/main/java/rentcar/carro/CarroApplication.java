@@ -6,13 +6,21 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import rentcar.carro.service.ICarroService;
 
+import java.util.logging.Logger;
+
 @SpringBootApplication
 public class CarroApplication  {
     @Autowired
     ICarroService carroService;
 
+	static Logger log = Logger.getLogger(CarroApplication.class.getName());
 	public static void main(String[] args) {
 		SpringApplication.run(CarroApplication.class, args);
+
+
+
+			log.info("logger for Carro Application is started");
+
 	}
 }
 //*/

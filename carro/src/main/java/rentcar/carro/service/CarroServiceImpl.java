@@ -24,6 +24,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import rentcar.carro.controller.CarroRestController;
 import rentcar.carro.dto.*;
 import rentcar.carro.entities.*;
 import rentcar.carro.exception.ObjectNotFoundException;
@@ -32,6 +33,7 @@ import rentcar.carro.exception.InvalidUpdateCarDtoException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -46,6 +48,9 @@ import java.sql.Timestamp;
 @EnableScheduling
 @EnableAsync
 public class CarroServiceImpl implements ICarroService {
+
+	static Logger log = Logger.getLogger(CarroServiceImpl.class.getName());
+
 	@Autowired
 	MongoOperations mongoOperations;
 	

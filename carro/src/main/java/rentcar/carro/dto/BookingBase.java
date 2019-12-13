@@ -1,5 +1,10 @@
 package rentcar.carro.dto;
+
 import lombok.*;
+
+import javax.validation.constraints.*;
+
+import static rentcar.carro.dto.RegExprForValidator.NUMBER_AND_SPACE;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -7,7 +12,14 @@ import lombok.*;
 @Getter
 @ToString
 public class BookingBase {
-	String regNumber;
-	Long startDateTime;
-	Long endDateTime;	
+    @NotNull
+    @Size( max = 9)
+    @Pattern(regexp = NUMBER_AND_SPACE)
+    String regNumber;
+    @NotNull
+//    @Past
+    Long startDateTime;
+    @NotNull
+//    @Future
+    Long endDateTime;
 }

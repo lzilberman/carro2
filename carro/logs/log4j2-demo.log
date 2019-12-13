@@ -1,0 +1,111 @@
+2019-12-13 16:10:06.987  INFO MBP-Smilyk --- [  restartedMain] r.c.CarroApplication                     : Starting CarroApplication on MBP-Smilyk with PID 85201 (/Users/smilyk/CARRO/carro/carro2/carro/target/classes started by smilyk in /Users/smilyk/CARRO/carro/carro2/carro)
+2019-12-13 16:10:06.999  INFO MBP-Smilyk --- [  restartedMain] r.c.CarroApplication                     : No active profile set, falling back to default profiles: default
+2019-12-13 16:10:07.043  INFO MBP-Smilyk --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-13 16:10:07.043  INFO MBP-Smilyk --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-13 16:10:07.800  INFO MBP-Smilyk --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-13 16:10:07.860  INFO MBP-Smilyk --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57ms. Found 2 repository interfaces.
+2019-12-13 16:10:08.368  INFO MBP-Smilyk --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2019-12-13 16:10:08.378  INFO MBP-Smilyk --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-13 16:10:08.384  INFO MBP-Smilyk --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2019-12-13 16:10:08.385  INFO MBP-Smilyk --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-12-13 16:10:08.438  INFO MBP-Smilyk --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2019-12-13 16:10:08.438  INFO MBP-Smilyk --- [  restartedMain] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 1395 ms
+2019-12-13 16:10:08.861  INFO MBP-Smilyk --- [  restartedMain] o.m.d.cluster                            : Cluster created with settings {hosts=[cluster0-shard-00-01-lwaut.mongodb.net:27017, cluster0-shard-00-02-lwaut.mongodb.net:27017, cluster0-shard-00-00-lwaut.mongodb.net:27017], mode=MULTIPLE, requiredClusterType=REPLICA_SET, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500, requiredReplicaSetName='Cluster0-shard-0'}
+2019-12-13 16:10:08.861  INFO MBP-Smilyk --- [  restartedMain] o.m.d.cluster                            : Adding discovered server cluster0-shard-00-01-lwaut.mongodb.net:27017 to client view of cluster
+2019-12-13 16:10:08.878  INFO MBP-Smilyk --- [  restartedMain] o.m.d.cluster                            : Adding discovered server cluster0-shard-00-02-lwaut.mongodb.net:27017 to client view of cluster
+2019-12-13 16:10:08.878  INFO MBP-Smilyk --- [  restartedMain] o.m.d.cluster                            : Adding discovered server cluster0-shard-00-00-lwaut.mongodb.net:27017 to client view of cluster
+2019-12-13 16:10:09.291  INFO MBP-Smilyk --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-13 16:10:09.610  INFO MBP-Smilyk --- [  restartedMain] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-13 16:10:09.962  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:2, serverValue:3209984}] to cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:10:09.974  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:1, serverValue:668372}] to cluster0-shard-00-01-lwaut.mongodb.net:27017
+2019-12-13 16:10:10.021  INFO MBP-Smilyk --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@37b07cd0, org.springframework.security.web.context.SecurityContextPersistenceFilter@cbc7195, org.springframework.security.web.header.HeaderWriterFilter@209129df, org.springframework.security.web.authentication.logout.LogoutFilter@5cd8b6ba, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@619eb5c0, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@30700cc2, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@6c22ea09, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@14df8167, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2c74fec0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@717abae5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@381f6683, org.springframework.security.web.session.SessionManagementFilter@2ae31437, org.springframework.security.web.access.ExceptionTranslationFilter@56cd8e8d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7eb830c0]
+2019-12-13 16:10:10.055  INFO MBP-Smilyk --- [  restartedMain] o.s.b.a.e.w.EndpointLinksResolver        : Exposing 16 endpoint(s) beneath base path '/actuator'
+2019-12-13 16:10:10.085  INFO MBP-Smilyk --- [  restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-12-13 16:10:10.118  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-00-lwaut.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=154554097, setName='Cluster0-shard-0', canonicalAddress=cluster0-shard-00-00-lwaut.mongodb.net:27017, hosts=[cluster0-shard-00-00-lwaut.mongodb.net:27017, cluster0-shard-00-01-lwaut.mongodb.net:27017, cluster0-shard-00-02-lwaut.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-00-lwaut.mongodb.net:27017', tagSet=TagSet{[Tag{name='region', value='US_EAST_1'}, Tag{name='provider', value='AWS'}, Tag{name='nodeType', value='ELECTABLE'}]}, electionId=7fffffff0000000000000011, setVersion=1, lastWriteDate=Fri Dec 13 16:10:08 IST 2019, lastUpdateTimeNanos=370042632830420}
+2019-12-13 16:10:10.119  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Setting max election id to 7fffffff0000000000000011 from replica set primary cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:10:10.119  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Setting max set version to 1 from replica set primary cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:10:10.120  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Discovered replica set primary cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:10:10.134  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-01-lwaut.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=160028340, setName='Cluster0-shard-0', canonicalAddress=cluster0-shard-00-01-lwaut.mongodb.net:27017, hosts=[cluster0-shard-00-00-lwaut.mongodb.net:27017, cluster0-shard-00-01-lwaut.mongodb.net:27017, cluster0-shard-00-02-lwaut.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-00-lwaut.mongodb.net:27017', tagSet=TagSet{[Tag{name='provider', value='AWS'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='region', value='US_EAST_1'}]}, electionId=null, setVersion=1, lastWriteDate=Fri Dec 13 16:10:08 IST 2019, lastUpdateTimeNanos=370042649469039}
+2019-12-13 16:10:10.160  INFO MBP-Smilyk --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2019-12-13 16:10:10.212  INFO MBP-Smilyk --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2019-12-13 16:10:10.219  INFO MBP-Smilyk --- [  restartedMain] r.c.CarroApplication                     : Started CarroApplication in 3.618 seconds (JVM running for 4.758)
+2019-12-13 16:10:10.233  INFO MBP-Smilyk --- [  restartedMain] r.c.CarroApplication                     : Hello this is an info message
+2019-12-13 16:10:10.710  INFO MBP-Smilyk --- [)-192.168.14.84] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-13 16:10:10.710  INFO MBP-Smilyk --- [)-192.168.14.84] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2019-12-13 16:10:10.719  INFO MBP-Smilyk --- [)-192.168.14.84] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2019-12-13 16:10:10.921  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:3, serverValue:655840}] to cluster0-shard-00-02-lwaut.mongodb.net:27017
+2019-12-13 16:10:11.081  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-02-lwaut.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=158309128, setName='Cluster0-shard-0', canonicalAddress=cluster0-shard-00-02-lwaut.mongodb.net:27017, hosts=[cluster0-shard-00-00-lwaut.mongodb.net:27017, cluster0-shard-00-01-lwaut.mongodb.net:27017, cluster0-shard-00-02-lwaut.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-00-lwaut.mongodb.net:27017', tagSet=TagSet{[Tag{name='region', value='US_EAST_1'}, Tag{name='provider', value='AWS'}, Tag{name='nodeType', value='ELECTABLE'}]}, electionId=null, setVersion=1, lastWriteDate=Fri Dec 13 16:10:08 IST 2019, lastUpdateTimeNanos=370043596309104}
+2019-12-13 16:10:12.155  INFO MBP-Smilyk --- [)-192.168.14.84] o.m.d.connection                         : Opened connection [connectionId{localValue:4, serverValue:3208184}] to cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:12:56.672  INFO MBP-Smilyk --- [nio-8080-exec-2] r.c.c.CarroRestController                : car with registration number 60-666-75 was added in to the DB 
+2019-12-13 16:27:26.408  INFO MBP-Smilyk --- [         task-8] o.m.d.connection                         : Closed connection [connectionId{localValue:4, serverValue:3208184}] to cluster0-shard-00-00-lwaut.mongodb.net:27017 because there was a socket exception raised on another connection from this pool.
+2019-12-13 16:27:26.450  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:5, serverValue:3195784}] to cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:27:26.504  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:6, serverValue:654067}] to cluster0-shard-00-01-lwaut.mongodb.net:27017
+2019-12-13 16:27:27.883  INFO MBP-Smilyk --- [         task-8] o.m.d.connection                         : Opened connection [connectionId{localValue:7, serverValue:3211526}] to cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:27:27.925  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:8, serverValue:655840}] to cluster0-shard-00-02-lwaut.mongodb.net:27017
+2019-12-13 16:37:17.344  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.connection                         : Opened connection [connectionId{localValue:9, serverValue:655839}] to cluster0-shard-00-02-lwaut.mongodb.net:27017
+2019-12-13 16:37:43.283  WARN MBP-Smilyk --- [         task-9] o.m.d.connection                         : Got socket exception on connection [connectionId{localValue:7, serverValue:3211526}] to cluster0-shard-00-00-lwaut.mongodb.net:27017. All connections to cluster0-shard-00-00-lwaut.mongodb.net:27017 will be closed.
+2019-12-13 16:37:43.284  INFO MBP-Smilyk --- [         task-9] o.m.d.connection                         : Closed connection [connectionId{localValue:7, serverValue:3211526}] to cluster0-shard-00-00-lwaut.mongodb.net:27017 because there was a socket exception raised by this connection.
+2019-12-13 16:37:43.296 ERROR MBP-Smilyk --- [         task-9] .a.i.SimpleAsyncUncaughtExceptionHandler : Unexpected exception occurred invoking async method: public void rentcar.carro.service.CarroServiceImpl.clearUnconfirmedBookings()
+org.springframework.data.mongodb.UncategorizedMongoDbException: Exception receiving message; nested exception is com.mongodb.MongoSocketReadException: Exception receiving message
+	at org.springframework.data.mongodb.core.MongoExceptionTranslator.translateExceptionIfPossible(MongoExceptionTranslator.java:138)
+	at org.springframework.data.mongodb.core.MongoTemplate.potentiallyConvertRuntimeException(MongoTemplate.java:2781)
+	at org.springframework.data.mongodb.core.MongoTemplate.execute(MongoTemplate.java:547)
+	at org.springframework.data.mongodb.core.MongoTemplate.doUpdate(MongoTemplate.java:1578)
+	at org.springframework.data.mongodb.core.MongoTemplate.doUpdate(MongoTemplate.java:1568)
+	at org.springframework.data.mongodb.core.MongoTemplate.updateMulti(MongoTemplate.java:1550)
+	at rentcar.carro.service.CarroServiceImpl.clearUnconfirmedBookings(CarroServiceImpl.java:213)
+	at sun.reflect.GeneratedMethodAccessor83.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: com.mongodb.MongoSocketReadException: Exception receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:543)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessage(InternalStreamConnection.java:428)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:289)
+	at com.mongodb.internal.connection.InternalStreamConnection.sendAndReceive(InternalStreamConnection.java:255)
+	at com.mongodb.internal.connection.UsageTrackingInternalConnection.sendAndReceive(UsageTrackingInternalConnection.java:99)
+	at com.mongodb.internal.connection.DefaultConnectionPool$PooledConnection.sendAndReceive(DefaultConnectionPool.java:444)
+	at com.mongodb.internal.connection.CommandProtocolImpl.execute(CommandProtocolImpl.java:72)
+	at com.mongodb.internal.connection.DefaultServer$DefaultServerProtocolExecutor.execute(DefaultServer.java:200)
+	at com.mongodb.internal.connection.DefaultServerConnection.executeProtocol(DefaultServerConnection.java:269)
+	at com.mongodb.internal.connection.DefaultServerConnection.command(DefaultServerConnection.java:131)
+	at com.mongodb.operation.MixedBulkWriteOperation.executeCommand(MixedBulkWriteOperation.java:418)
+	at com.mongodb.operation.MixedBulkWriteOperation.executeBulkWriteBatch(MixedBulkWriteOperation.java:256)
+	at com.mongodb.operation.MixedBulkWriteOperation.access$700(MixedBulkWriteOperation.java:67)
+	at com.mongodb.operation.MixedBulkWriteOperation$1.call(MixedBulkWriteOperation.java:200)
+	at com.mongodb.operation.MixedBulkWriteOperation$1.call(MixedBulkWriteOperation.java:191)
+	at com.mongodb.operation.OperationHelper.withReleasableConnection(OperationHelper.java:424)
+	at com.mongodb.operation.MixedBulkWriteOperation.execute(MixedBulkWriteOperation.java:191)
+	at com.mongodb.operation.MixedBulkWriteOperation.execute(MixedBulkWriteOperation.java:67)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.execute(MongoClientDelegate.java:193)
+	at com.mongodb.client.internal.MongoCollectionImpl.executeSingleWriteRequest(MongoCollectionImpl.java:960)
+	at com.mongodb.client.internal.MongoCollectionImpl.executeUpdate(MongoCollectionImpl.java:951)
+	at com.mongodb.client.internal.MongoCollectionImpl.updateMany(MongoCollectionImpl.java:636)
+	at org.springframework.data.mongodb.core.MongoTemplate$8.doInCollection(MongoTemplate.java:1623)
+	at org.springframework.data.mongodb.core.MongoTemplate$8.doInCollection(MongoTemplate.java:1578)
+	at org.springframework.data.mongodb.core.MongoTemplate.execute(MongoTemplate.java:545)
+	... 15 more
+Caused by: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.security.ssl.InputRecord.readFully(InputRecord.java:465)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:503)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:983)
+	at sun.security.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:940)
+	at sun.security.ssl.AppInputStream.read(AppInputStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:89)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:554)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessage(InternalStreamConnection.java:425)
+	... 38 more
+2019-12-13 16:37:43.444  INFO MBP-Smilyk --- [ngodb.net:27017] o.m.d.cluster                            : Discovered replica set primary cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 16:38:46.247  INFO MBP-Smilyk --- [        task-10] o.m.d.connection                         : Opened connection [connectionId{localValue:10, serverValue:3208186}] to cluster0-shard-00-00-lwaut.mongodb.net:27017
+2019-12-13 17:02:30.588  INFO MBP-Smilyk --- [      Thread-17] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-12-13 17:02:30.591  INFO MBP-Smilyk --- [      Thread-17] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-13 17:02:30.756  INFO MBP-Smilyk --- [      Thread-17] o.m.d.connection                         : Closed connection [connectionId{localValue:10, serverValue:3208186}] to cluster0-shard-00-00-lwaut.mongodb.net:27017 because the pool has been closed.
